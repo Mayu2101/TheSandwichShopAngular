@@ -1,0 +1,8 @@
+<mat-toolbar color="primary">
+    The Sandwich Shop
+    <div *ngIf="isLoggedIn">
+        <button mat-button routerLink="/order">Order</button>
+        <button mat-button routerLink="/products">Products</button>
+        <button mat-button routerLink="/shift">Shift</button>
+    </div>
+</mat-toolbar>
