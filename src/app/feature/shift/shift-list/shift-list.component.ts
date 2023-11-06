@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserShift } from '../user-shift.model';
+import { UserShift } from '../employee-shift.model';
 import { ShiftService } from '../shift.service';
 import { take } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
