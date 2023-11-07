@@ -15,8 +15,10 @@
       <mat-form-field style="width: 100%">
         <mat-label>Type</mat-label>
         <mat-select formControlName="shiftId">
-          <mat-option value="123">2022-01-02 Morning</mat-option>
-          <mat-option value="123">2022-01-02 Afternoon</mat-option>
+          <mat-option *ngFor="let shift of availableShifts" [value]="shift.id"
+            >{{ shift.date | date: "yyyy-MM-dd" }} -
+            {{ shift.shiftType }}</mat-option
+          >
         </mat-select>
       </mat-form-field>
     </mat-card-content>
@@ -24,6 +26,7 @@
       mat-stroked-button
       color="primary"
       class="btn-block"
+      [disabled]="!shiftEditForm.valid"
       (click)="saveShift()"
     >
       Save

@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EmployeeShift } from './employee-shift.model';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { Shift } from './shift.model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,12 +18,32 @@ export class ShiftService {
 
   constructor(private httpClient: HttpClient) {}
 
-  listAvailableShifts() {
+  listAvailableShifts(): Observable<Shift[]> {
     const fakeShifts = [
-      { id: '121', date: new Date(), shiftType: 'Morning' },
-      { id: '122', date: new Date(), shiftType: 'Afternoon' },
-      { id: '123', date: new Date(), shiftType: 'Morning' },
-      { id: '124', date: new Date(), shiftType: 'Afternoon' },
+      {
+        id: '121',
+        date: new Date(),
+        shiftType: 'Morning',
+        noEmployeesBooked: 0,
+      },
+      {
+        id: '122',
+        date: new Date(),
+        shiftType: 'Afternoon',
+        noEmployeesBooked: 0,
+      },
+      {
+        id: '123',
+        date: new Date(),
+        shiftType: 'Morning',
+        noEmployeesBooked: 0,
+      },
+      {
+        id: '124',
+        date: new Date(),
+        shiftType: 'Afternoon',
+        noEmployeesBooked: 0,
+      },
     ];
     return of(fakeShifts);
   }
