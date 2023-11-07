@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginUser } from '../shared/login-user';
 import { RegisterUser } from '../shared/register-user';
-import { User } from '../shared/user';
+import { User, UserOtp } from '../shared/user';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -35,7 +35,8 @@ export class DataService {
     );
   }
 
-  ValidateOtp(user: User) {
+  ValidateOtp(user: UserOtp) {
+    console.log(user);
     return this.httpClient.post(`${this.apiUrl}/Otp`, user, this.httpOptions);
   }
 }

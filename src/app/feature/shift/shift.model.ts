@@ -1,6 +1,6 @@
 export interface Shift {
-    id: string,
-    date: Date,
+    shiftId: string,
+    shiftDate: Date,
     shiftType: string,
-    noEmployeesBooked: number,
+    noOfEmpBooked: number,
 }

@@ -1,5 +1,5 @@
 export interface EmployeeShift {
-  id: string;
+  employeeShiftId: string;
   employeeId: string;
   shiftId: string;
   shiftType: string;

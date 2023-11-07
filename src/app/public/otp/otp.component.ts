@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
-import { User } from 'src/app/shared/user';
+import { User, UserOtp } from 'src/app/shared/user';
 
 @Component({
   selector: 'app-otp',
@@ -27,12 +27,15 @@ export class OtpComponent implements OnInit {
 
   SubmitOtp() {
     if (localStorage.getItem('User')) {
-      this.mockOtpForNow();
-
+      // this.mockOtpForNow();
       var user: User = JSON.parse(localStorage.getItem('User')!);
       user.otp = this.otpFormGroup.value['Otp'];
 
-      this.dataService.ValidateOtp(user).subscribe(
+      var otpUser: UserOtp = {
+        userName: user.userName,
+        otp: this.otpFormGroup.value['Otp']
+      }
+      this.dataService.ValidateOtp(otpUser).subscribe(
         () => {
           if (user.hasBookedShift) {
             user.otp = this.otpFormGroup.value['Otp'];
