@@ -1,4 +1,6 @@
 export interface User {
-    userName: string
-    otp?: string
+  id: string;
+  userName: string;
+  hasBookedShift: boolean;
+  otp?: string;
 }

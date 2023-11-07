@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserShift } from '../employee-shift.model';
+import { EmployeeShift } from '../employee-shift.model';
 import { ShiftService } from '../shift.service';
 import { take } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
@@ -7,22 +7,20 @@ import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-shift-list',
   templateUrl: './shift-list.component.html',
-  styleUrls: ['./shift-list.component.scss']
+  styleUrls: ['./shift-list.component.scss'],
 })
 export class ShiftListComponent implements OnInit {
-  
-  dataSource = new MatTableDataSource<UserShift>([]);
+  dataSource = new MatTableDataSource<EmployeeShift>([]);
   displayedColumns: string[] = ['date', 'type', 'action'];
   isLoading = true;
 
-  constructor(
-    private shiftService: ShiftService,
-  ) {}
+  constructor(private shiftService: ShiftService) {}
 
   ngOnInit(): void {
-    this.shiftService.userShifts('123')
+    this.shiftService
+      .employeeShifts('123')
       .pipe(take(1))
-      .subscribe((shifts: UserShift[]) => {
+      .subscribe((shifts: EmployeeShift[]) => {
         this.dataSource.data = shifts;
         this.isLoading = false;
       });

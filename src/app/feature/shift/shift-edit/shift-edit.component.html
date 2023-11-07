@@ -1,27 +1,32 @@
 <mat-card class="box">
-    <mat-card-header>
-      <mat-card-title>Shift</mat-card-title>
-    </mat-card-header>
-    <form class="form" [formGroup]="shiftEditForm">
-      <mat-card-content>
-        <mat-form-field style="width: 100%;">
-          <mat-label>GUID</mat-label>
-          <input matInput readonly formControlName="shiftGuid">
-        </mat-form-field>
-        <mat-form-field style="width: 100%;">
-          <mat-label>Date</mat-label>
-            <input matInput [matDatepicker]="datepicker" formControlName="date">
-            <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-            <mat-datepicker #datepicker></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field style="width: 100%;">
-            <mat-label>Type</mat-label>
-            <mat-select formControlName="type">
-                <mat-option value="Morning">Morning</mat-option>
-                <mat-option value="Afternoon">Afternoon</mat-option>
-            </mat-select>
-        </mat-form-field>
-      </mat-card-content>
-      <button mat-stroked-button color="primary" class="btn-block" (click)="saveShift()">Save</button>
-    </form>
-  </mat-card>
+  <mat-card-header>
+    <mat-card-title>Shift</mat-card-title>
+  </mat-card-header>
+  <form class="form" [formGroup]="shiftEditForm">
+    <mat-card-content>
+      <mat-form-field style="width: 100%">
+        <mat-label>ID</mat-label>
+        <input matInput readonly formControlName="id" />
+      </mat-form-field>
+      <mat-form-field style="width: 100%">
+        <mat-label>Employee ID</mat-label>
+        <input matInput readonly formControlName="employeeId" />
+      </mat-form-field>
+      <mat-form-field style="width: 100%">
+        <mat-label>Type</mat-label>
+        <mat-select formControlName="shiftId">
+          <mat-option value="123">2022-01-02 Morning</mat-option>
+          <mat-option value="123">2022-01-02 Afternoon</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+    <button
+      mat-stroked-button
+      color="primary"
+      class="btn-block"
+      (click)="saveShift()"
+    >
+      Save
+    </button>
+  </form>
+</mat-card>

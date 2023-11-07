@@ -8,44 +8,66 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
   loginFormGroup: FormGroup = this.fb.group({
     UserName: ['', [Validators.required, Validators.email]],
     Password: ['', Validators.required],
-  })
+  });
 
-  isLoading:boolean = false
+  isLoading: boolean = false;
 
-  constructor(private router: Router, private dataService: DataService, private fb: FormBuilder, private snackBar: MatSnackBar) { }
+  constructor(
+    private router: Router,
+    private dataService: DataService,
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar,
+  ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  LoginUser() {
+    if (this.loginFormGroup.valid) {
+      this.isLoading = true;
+      this.mockOtpForNow();
+      // this.dataService.LoginUser(this.loginFormGroup.value).subscribe(result => {
+      //   localStorage.setItem('User', JSON.stringify(result))
+      //   this.loginFormGroup.reset();
+      //   this.router.navigate(['otp']).then((navigated: boolean) => {
+      //     if(navigated) {
+      //       this.snackBar.open(`The OTP has been sent to your email address`, 'X', {duration: 10000});
+      //     }
+      //  });
+      // }, (response: HttpErrorResponse) => {
+      //   this.isLoading = false
+      //   if (response.status === 404) {
+      //     this.snackBar.open(response.error, 'X', {duration: 5000});
+      //   }
+      //   if (response.status === 500){
+      //     this.snackBar.open(response.error, 'X', {duration: 5000});
+      //   }
+      // })
+    }
   }
 
-  LoginUser(){
-    if(this.loginFormGroup.valid)
-    {
-      this.isLoading = true
+  private mockOtpForNow() {
+    localStorage.setItem(
+      'User',
+      JSON.stringify({
+        id: '123456789',
+        userName: 'Raymond',
+        hasBookedShift: true,
+      }),
+    );
 
-      this.dataService.LoginUser(this.loginFormGroup.value).subscribe(result => {
-        localStorage.setItem('User', JSON.stringify(result))
-        this.loginFormGroup.reset();
-        this.router.navigate(['otp']).then((navigated: boolean) => {
-          if(navigated) {
-            this.snackBar.open(`The OTP has been sent to your email address`, 'X', {duration: 10000});
-          }
-       });
-      }, (response: HttpErrorResponse) => {
-        this.isLoading = false
-        if (response.status === 404) {
-          this.snackBar.open(response.error, 'X', {duration: 5000});
-        }
-        if (response.status === 500){
-          this.snackBar.open(response.error, 'X', {duration: 5000});
-        }
-      })
-    }
+    this.loginFormGroup.reset();
+    this.router.navigate(['otp']).then((navigated: boolean) => {
+      if (navigated) {
+        this.snackBar.open(`The OTP has been sent to your email address`, 'X', {
+          duration: 10000,
+        });
+      }
+    });
   }
 }

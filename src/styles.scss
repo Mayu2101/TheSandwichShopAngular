@@ -4,8 +4,11 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
-.login-wrapper {
-  height: 100%;
+.center-flex{
+  flex-direction: row;
+  display: flex;
+  place-content: center;
+  align-items: center;
 }
 
 .box {
@@ -30,6 +33,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   top: -20px;
   opacity: .8;
   z-index: -1;
+}
+
+.login-wrapper {
+  padding: 50px;
 }
 
 .login-wrapper .form {
