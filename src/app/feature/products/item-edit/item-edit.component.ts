@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ProductsService } from '../products.service';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs';
@@ -12,7 +17,19 @@ import { Item } from '../models/item.model';
 })
 export class ItemEditComponent {
   public itemEditForm: FormGroup;
+  public basePriceEditForm: FormGroup;
+  public categories: string[];
   private mode: string;
+
+  toppings = new FormControl('');
+  public toppingList: string[] = [
+    'Extra cheese',
+    'Mushroom',
+    'Onion',
+    'Pepperoni',
+    'Sausage',
+    'Tomato',
+  ];
 
   constructor(
     private productsService: ProductsService,
@@ -20,7 +37,9 @@ export class ItemEditComponent {
     private activatedRoute: ActivatedRoute,
   ) {
     this.itemEditForm = new FormGroup({});
+    this.basePriceEditForm = new FormGroup({});
     this.mode = 'add';
+    this.categories = ['Drink', 'Sandwich', 'Dessert'];
   }
 
   ngOnInit(): void {
@@ -38,7 +57,7 @@ export class ItemEditComponent {
         this.setFormValues({
           id: 'Auto Generated',
           description: '',
-          type: '',
+          category: '',
         });
       }
     });
@@ -56,6 +75,7 @@ export class ItemEditComponent {
     this.itemEditForm = this.fb.group({
       id: [item.id],
       description: [item.description, [Validators.required]],
+      category: [item.category, [Validators.required]],
     });
   }
 }

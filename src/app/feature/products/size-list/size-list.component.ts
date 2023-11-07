@@ -11,7 +11,7 @@ import { take } from 'rxjs';
 })
 export class SizeListComponent {
   dataSource = new MatTableDataSource<Size>([]);
-  displayedColumns: string[] = ['id', 'description', 'action'];
+  displayedColumns: string[] = ['id', 'description', 'extraCost', 'action'];
   isLoading = true;
 
   constructor(private productsService: ProductsService) {}

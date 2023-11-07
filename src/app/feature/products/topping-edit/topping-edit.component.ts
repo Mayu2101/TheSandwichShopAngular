@@ -38,6 +38,7 @@ export class ToppingEditComponent {
         this.setFormValues({
           id: 'Auto Generated',
           description: '',
+          price: 0.0,
         });
       }
     });
@@ -55,6 +56,7 @@ export class ToppingEditComponent {
     this.toppingEditForm = this.fb.group({
       id: [topping.id],
       description: [topping.description, [Validators.required]],
+      price: [topping.price, [Validators.required]],
     });
   }
 }

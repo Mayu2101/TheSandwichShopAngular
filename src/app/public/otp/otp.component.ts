@@ -29,20 +29,35 @@ export class OtpComponent implements OnInit {
     if (localStorage.getItem('User')) {
       this.mockOtpForNow();
 
-      // var user: User = JSON.parse(localStorage.getItem('User')!);
-      // user.otp = this.otpFormGroup.value['Otp'];
+      var user: User = JSON.parse(localStorage.getItem('User')!);
+      user.otp = this.otpFormGroup.value['Otp'];
 
-      // this.dataService.ValidateOtp(this.user).subscribe(
-      //   () => {
-      //     this.otpFormGroup.reset();
-      //     this.router.navigate(['../shift/list']);
-      //   },
-      //   (response: HttpErrorResponse) => {
-      //     if (response.status === 400) {
-      //       this.snackBar.open(response.error, 'X', { duration: 5000 });
-      //     }
-      //   },
-      // );
+      this.dataService.ValidateOtp(user).subscribe(
+        () => {
+          if (user.hasBookedShift) {
+            user.otp = this.otpFormGroup.value['Otp'];
+            localStorage.setItem('User', JSON.stringify(user));
+            this.otpFormGroup.reset();
+            this.router.navigate(['../shift/list']);
+          } else {
+            this.snackBar.open(
+              'You do not currently have a shift booked',
+              'X',
+              {
+                duration: 5000,
+              },
+            );
+            localStorage.removeItem('User');
+            this.otpFormGroup.reset();
+            this.router.navigate(['login']);
+          }
+        },
+        (response: HttpErrorResponse) => {
+          if (response.status === 400) {
+            this.snackBar.open(response.error, 'X', { duration: 5000 });
+          }
+        },
+      );
     }
   }
 

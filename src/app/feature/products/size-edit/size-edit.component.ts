@@ -38,6 +38,7 @@ export class SizeEditComponent {
         this.setFormValues({
           id: 'Auto Generated',
           description: '',
+          extraCost: 0.0,
         });
       }
     });
@@ -55,6 +56,7 @@ export class SizeEditComponent {
     this.sizeEditForm = this.fb.group({
       id: [size.id],
       description: [size.description, [Validators.required]],
+      extraCost: [size.extraCost, [Validators.required]],
     });
   }
 }

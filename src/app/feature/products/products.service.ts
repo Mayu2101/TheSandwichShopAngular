@@ -23,17 +23,22 @@ export class ProductsService {
   constructor(private httpClient: HttpClient) {}
 
   // Items Services
-  getAllItems() {
+  getAllItems(): Observable<Item[]> {
     const fakeData = [
-      { id: '1', description: 'Coke', type: 'Drink' },
-      { id: '2', description: 'Ice Cream', type: 'Dessert' },
-      { id: '3', description: 'Ham and Cheese', type: 'Sandwich' },
+      { id: '1', description: 'Coke', category: 'Drink', price: 5.0 },
+      { id: '2', description: 'Ice Cream', category: 'Dessert', price: 2.0 },
+      {
+        id: '3',
+        description: 'Ham and Cheese',
+        category: 'Sandwich',
+        price: 15.0,
+      },
     ];
     return of(fakeData); // TODO
   }
 
   getItem(id: string) {
-    return of({ id: id, description: 'Coke', type: 'Drink' });
+    return of({ id: id, description: 'Coke', category: 'Drink' });
   }
 
   createItem(item: Item) {
@@ -69,15 +74,15 @@ export class ProductsService {
   // Toppings Services
   getAllToppings(): Observable<Topping[]> {
     const fakeData = [
-      { id: '1', description: 'Ham' },
-      { id: '2', description: 'Cheese' },
-      { id: '3', description: 'Tomato' },
+      { id: '1', description: 'Ham', price: 5.0 },
+      { id: '2', description: 'Cheese', price: 6.0 },
+      { id: '3', description: 'Tomato', price: 7.0 },
     ];
     return of(fakeData); // TODO
   }
 
   getTopping(id: string) {
-    return of({ id: id, description: 'Ham' });
+    return of({ id: id, description: 'Ham', price: 5.0 });
   }
 
   createTopping(topping: Topping) {
@@ -91,14 +96,14 @@ export class ProductsService {
   // Sizes Services
   getAllSizes(): Observable<Size[]> {
     const fakeData = [
-      { id: '1', description: '250ml' },
-      { id: '2', description: '500ml' },
+      { id: '1', description: '250ml', extraCost: 0.0 },
+      { id: '2', description: '500ml', extraCost: 5.0 },
     ];
     return of(fakeData); // TODO
   }
 
   getSize(id: string) {
-    return of({ id: id, description: '250ml' });
+    return of({ id: id, description: '250ml', extraCost: 0.0 });
   }
 
   createSize(size: Size) {
