@@ -1,15 +1,17 @@
-<mat-sidenav-container style="height: 100%;">
-    <mat-sidenav #sidenav mode="side" opened>
-        <mat-nav-list>
-            <a mat-list-item routerLink="/items">Items</a>
-            <a mat-list-item routerLink="/sizes">Sizes</a>
-            <a mat-list-item routerLink="/toppings">Toppings</a>
-            <a mat-list-item routerLink="/breadType">Bread Type</a>
-            <a mat-list-item routerLink="/combos">Combos</a>
-        </mat-nav-list>
-    </mat-sidenav>
+<mat-sidenav-container style="height: 100%">
+  <mat-sidenav #sidenav mode="side" opened>
+    <mat-nav-list>
+      <a mat-list-item routerLink="item">Items</a>
+      <a mat-list-item routerLink="size">Sizes</a>
+      <a mat-list-item routerLink="topping">Toppings</a>
+      <a mat-list-item routerLink="bread">Bread Type</a>
+      <a mat-list-item routerLink="combo">Combos</a>
+    </mat-nav-list>
+  </mat-sidenav>
 
-    <mat-sidenav-content>
-        <router-outlet></router-outlet>
-    </mat-sidenav-content>
+  <mat-sidenav-content>
+    <div style="padding: 20px">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
 </mat-sidenav-container>

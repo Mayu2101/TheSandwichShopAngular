@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { LoginUser } from '../shared/login-user';
 import { RegisterUser } from '../shared/register-user';
 import { User } from '../shared/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  apiUrl = 'https://localhost:44381/api/';
+  apiUrl = environment.apiUrl + '/Authentication';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -20,7 +21,7 @@ export class DataService {
 
   RegisterUser(registerUser: RegisterUser) {
     return this.httpClient.post(
-      `${this.apiUrl}Authentication/Register`,
+      `${this.apiUrl}/Register`,
       registerUser,
       this.httpOptions,
     );
@@ -28,17 +29,13 @@ export class DataService {
 
   LoginUser(loginUser: LoginUser) {
     return this.httpClient.post<User>(
-      `${this.apiUrl}Authentication/Login`,
+      `${this.apiUrl}/Login`,
       loginUser,
       this.httpOptions,
     );
   }
 
   ValidateOtp(user: User) {
-    return this.httpClient.post(
-      `${this.apiUrl}Authentication/Otp`,
-      user,
-      this.httpOptions,
-    );
+    return this.httpClient.post(`${this.apiUrl}/Otp`, user, this.httpOptions);
   }
 }

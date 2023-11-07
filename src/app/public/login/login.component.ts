@@ -31,23 +31,30 @@ export class LoginComponent implements OnInit {
     if (this.loginFormGroup.valid) {
       this.isLoading = true;
       this.mockOtpForNow();
-      // this.dataService.LoginUser(this.loginFormGroup.value).subscribe(result => {
-      //   localStorage.setItem('User', JSON.stringify(result))
-      //   this.loginFormGroup.reset();
-      //   this.router.navigate(['otp']).then((navigated: boolean) => {
-      //     if(navigated) {
-      //       this.snackBar.open(`The OTP has been sent to your email address`, 'X', {duration: 10000});
+      // this.dataService.LoginUser(this.loginFormGroup.value).subscribe(
+      //   (result) => {
+      //     localStorage.setItem('User', JSON.stringify(result));
+      //     this.loginFormGroup.reset();
+      //     this.router.navigate(['otp']).then((navigated: boolean) => {
+      //       if (navigated) {
+      //         this.snackBar.open(
+      //           `The OTP has been sent to your email address`,
+      //           'X',
+      //           { duration: 10000 },
+      //         );
+      //       }
+      //     });
+      //   },
+      //   (response: HttpErrorResponse) => {
+      //     this.isLoading = false;
+      //     if (response.status === 404) {
+      //       this.snackBar.open(response.error, 'X', { duration: 5000 });
       //     }
-      //  });
-      // }, (response: HttpErrorResponse) => {
-      //   this.isLoading = false
-      //   if (response.status === 404) {
-      //     this.snackBar.open(response.error, 'X', {duration: 5000});
-      //   }
-      //   if (response.status === 500){
-      //     this.snackBar.open(response.error, 'X', {duration: 5000});
-      //   }
-      // })
+      //     if (response.status === 500) {
+      //       this.snackBar.open(response.error, 'X', { duration: 5000 });
+      //     }
+      //   },
+      // );
     }
   }
 

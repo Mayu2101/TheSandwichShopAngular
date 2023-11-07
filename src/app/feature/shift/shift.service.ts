@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { EmployeeShift } from './employee-shift.model';
 import { Observable, of } from 'rxjs';
 import { Shift } from './shift.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShiftService {
-  apiUrl = 'https://localhost:44381/shift/';
+  apiUrl = environment.apiUrl + '/shift/';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -73,6 +74,7 @@ export class ShiftService {
   }
 
   createEmployeeShift(userShift: EmployeeShift) {
+    userShift.id = '';
     console.log(userShift);
   }
 
