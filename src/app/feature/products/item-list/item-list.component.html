@@ -12,12 +12,6 @@
     New Item
   </button>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>ID</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.id }}
-      </td>
-    </ng-container>
 
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef>Description</th>
@@ -41,7 +35,7 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef>Action</th>
       <td mat-cell *matCellDef="let element">
-        <button mat-button routerLink="/products/item/{{ element.id }}">
+        <button mat-button routerLink="/products/item/{{ element.itemId }}">
           Edit
         </button>
       </td>

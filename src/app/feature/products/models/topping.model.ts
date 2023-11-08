@@ -1,5 +1,5 @@
 export interface Topping {
-  id: string;
+  toppingId: string;
   description: string;
   price: number;
 }

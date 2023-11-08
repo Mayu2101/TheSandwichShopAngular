@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductsService } from '../products.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { Topping } from '../models/topping.model';
 
@@ -12,12 +12,14 @@ import { Topping } from '../models/topping.model';
 })
 export class ToppingEditComponent {
   public toppingEditForm: FormGroup;
+  public isLoading = true;
   private mode: string;
 
   constructor(
     private productsService: ProductsService,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) {
     this.toppingEditForm = new FormGroup({});
     this.mode = 'add';
@@ -33,28 +35,38 @@ export class ToppingEditComponent {
           .pipe(take(1))
           .subscribe((data: Topping) => {
             this.setFormValues(data);
+            this.isLoading = false;
           });
       } else {
         this.setFormValues({
-          id: 'Auto Generated',
+          toppingId: 'Auto Generated',
           description: '',
           price: 0.0,
         });
+        this.isLoading = false;
       }
     });
   }
 
   saveTopping() {
     if (this.mode === 'add') {
-      this.productsService.createTopping(this.toppingEditForm.value);
+      this.productsService.createTopping(this.toppingEditForm.value)
+        .pipe(take(1))
+        .subscribe(data => {
+          this.router.navigate(['../products/topping']);
+        });
     } else {
-      this.productsService.updateTopping(this.toppingEditForm.value);
+      this.productsService.updateTopping(this.toppingEditForm.value)
+        .pipe(take(1))
+        .subscribe(data => {
+          this.router.navigate(['../products/topping']);
+        });
     }
   }
 
   private setFormValues(topping: Topping) {
     this.toppingEditForm = this.fb.group({
-      id: [topping.id],
+      toppingId: [topping.toppingId],
       description: [topping.description, [Validators.required]],
       price: [topping.price, [Validators.required]],
     });

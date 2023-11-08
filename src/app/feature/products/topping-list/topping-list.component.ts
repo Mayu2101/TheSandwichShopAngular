@@ -11,7 +11,7 @@ import { take } from 'rxjs';
 })
 export class ToppingListComponent {
   dataSource = new MatTableDataSource<Topping>([]);
-  displayedColumns: string[] = ['id', 'description', 'price', 'action'];
+  displayedColumns: string[] = ['description', 'price', 'action'];
   isLoading = true;
 
   constructor(private productsService: ProductsService) {}

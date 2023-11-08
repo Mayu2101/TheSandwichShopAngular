@@ -1,5 +1,5 @@
 export interface Combo {
-  id: string;
+  comboId: string;
   description: string;
 }
 

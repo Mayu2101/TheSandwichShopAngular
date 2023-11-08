@@ -12,7 +12,6 @@ import { take } from 'rxjs';
 export class ItemListComponent {
   dataSource = new MatTableDataSource<Item>([]);
   displayedColumns: string[] = [
-    'id',
     'description',
     'category',
     'price',

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductsService } from '../products.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { Bread } from '../models/bread.model';
 
@@ -12,12 +12,14 @@ import { Bread } from '../models/bread.model';
 })
 export class BreadEditComponent {
   public breadEditForm: FormGroup;
+  public isLoading = true;
   private mode: string;
 
   constructor(
     private productsService: ProductsService,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) {
     this.breadEditForm = new FormGroup({});
     this.mode = 'add';
@@ -33,27 +35,37 @@ export class BreadEditComponent {
           .pipe(take(1))
           .subscribe((data: Bread) => {
             this.setFormValues(data);
+            this.isLoading = false;
           });
       } else {
         this.setFormValues({
-          id: 'Auto Generated',
+          breadTypeId: 'Auto Generated',
           description: '',
         });
+        this.isLoading = false;
       }
     });
   }
 
   saveBread() {
     if (this.mode === 'add') {
-      this.productsService.createBread(this.breadEditForm.value);
+      this.productsService.createBread(this.breadEditForm.value)
+        .pipe(take(1))
+        .subscribe(data => {
+          this.router.navigate(['../products/bread']);
+        });
     } else {
-      this.productsService.updateBread(this.breadEditForm.value);
+      this.productsService.updateBread(this.breadEditForm.value)
+        .pipe(take(1))
+        .subscribe(data => {
+          this.router.navigate(['../products/bread']);
+        });
     }
   }
 
   private setFormValues(bread: Bread) {
     this.breadEditForm = this.fb.group({
-      id: [bread.id],
+      breadTypeId: [bread.breadTypeId],
       description: [bread.description, [Validators.required]],
     });
   }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Item } from './models/item.model';
@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ProductsService {
-  apiUrl = environment.apiUrl + '/products/';
+  apiUrl = environment.apiUrl + '/Product';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -51,87 +51,78 @@ export class ProductsService {
 
   // Bread Services
   getAllBreads(): Observable<Bread[]> {
-    const fakeData = [
-      { id: '1', description: 'White' },
-      { id: '2', description: 'Brown' },
-      { id: '3', description: 'Rye' },
-    ];
-    return of(fakeData); // TODO
+    return this.httpClient.get<Bread[]>(`${this.apiUrl}/GetBreadTypes`, this.httpOptions)
   }
 
   getBread(id: string) {
-    return of({ id: id, description: 'White Bread' });
+    let params = new HttpParams().set('breadTypeId', id);
+    return this.httpClient.get<Bread>(`${this.apiUrl}/GetBreadType`, {params: params, ...this.httpOptions})
   }
 
   createBread(bread: Bread) {
-    console.log(bread); // TODO
+    bread.breadTypeId = '';
+    return this.httpClient.post<Bread>(`${this.apiUrl}/AddBreadType`, bread, this.httpOptions)
   }
 
   updateBread(bread: Bread) {
-    console.log(bread); // TODO
+    return this.httpClient.post<Bread>(`${this.apiUrl}/UpdateBreadType`, bread, this.httpOptions)
   }
 
   // Toppings Services
   getAllToppings(): Observable<Topping[]> {
-    const fakeData = [
-      { id: '1', description: 'Ham', price: 5.0 },
-      { id: '2', description: 'Cheese', price: 6.0 },
-      { id: '3', description: 'Tomato', price: 7.0 },
-    ];
-    return of(fakeData); // TODO
+    return this.httpClient.get<Topping[]>(`${this.apiUrl}/GetToppings`, this.httpOptions)
   }
 
   getTopping(id: string) {
-    return of({ id: id, description: 'Ham', price: 5.0 });
+    let params = new HttpParams().set('toppingId', id);
+    return this.httpClient.get<Topping>(`${this.apiUrl}/GetTopping`, {params: params, ...this.httpOptions})
   }
 
   createTopping(topping: Topping) {
-    console.log(topping); // TODO
+    topping.toppingId = '';
+    return this.httpClient.post<Topping>(`${this.apiUrl}/AddTopping`, topping, this.httpOptions)
   }
 
   updateTopping(topping: Topping) {
-    console.log(topping); // TODO
+    return this.httpClient.post<Topping>(`${this.apiUrl}/UpdateTopping`, topping, this.httpOptions)
   }
 
   // Sizes Services
   getAllSizes(): Observable<Size[]> {
-    const fakeData = [
-      { id: '1', description: '250ml', extraCost: 0.0 },
-      { id: '2', description: '500ml', extraCost: 5.0 },
-    ];
-    return of(fakeData); // TODO
+    return this.httpClient.get<Size[]>(`${this.apiUrl}/GetSizes`, this.httpOptions)
   }
 
   getSize(id: string) {
-    return of({ id: id, description: '250ml', extraCost: 0.0 });
+    let params = new HttpParams().set('sizeId', id);
+    return this.httpClient.get<Size>(`${this.apiUrl}/GetSize`, {params: params, ...this.httpOptions})
   }
 
   createSize(size: Size) {
-    console.log(size); // TODO
+    size.sizeId= '';
+    return this.httpClient.post<Size>(`${this.apiUrl}/AddSize`, size, this.httpOptions)
   }
 
   updateSize(size: Size) {
-    console.log(size); // TODO
+    console.log(size)
+    return this.httpClient.post<Size>(`${this.apiUrl}/UpdateSize`, size, this.httpOptions)
   }
 
   // Combos Services
   getAllCombos(): Observable<Combo[]> {
-    const fakeData = [
-      { id: '1', description: 'My Combo 1' },
-      { id: '2', description: 'Cheesy Cheese' },
-    ];
-    return of(fakeData); // TODO
+    return this.httpClient.get<Combo[]>(`${this.apiUrl}/GetCombos`, this.httpOptions)
   }
 
   getCombo(id: string) {
-    return of({ id: id, description: 'My Combo 1' });
+    let params = new HttpParams().set('comboId', id);
+    return this.httpClient.get<Combo>(`${this.apiUrl}/GetCombo`, {params: params, ...this.httpOptions})
   }
 
   createCombo(combo: Combo) {
-    console.log(combo); // TODO
+    combo.comboId= '';
+    return this.httpClient.post<Combo>(`${this.apiUrl}/AddCombo`, combo, this.httpOptions)
   }
 
   updateCombo(combo: Combo) {
-    console.log(combo); // TODO
+    return this.httpClient.post<Combo>(`${this.apiUrl}/UpdateCombo`, combo, this.httpOptions)
   }
 }

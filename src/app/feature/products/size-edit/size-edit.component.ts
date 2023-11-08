@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductsService } from '../products.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { Size } from '../models/size.model';
 
@@ -12,12 +12,14 @@ import { Size } from '../models/size.model';
 })
 export class SizeEditComponent {
   public sizeEditForm: FormGroup;
+  public isLoading = true;
   private mode: string;
 
   constructor(
     private productsService: ProductsService,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) {
     this.sizeEditForm = new FormGroup({});
     this.mode = 'add';
@@ -33,28 +35,38 @@ export class SizeEditComponent {
           .pipe(take(1))
           .subscribe((data: Size) => {
             this.setFormValues(data);
+            this.isLoading = false;
           });
       } else {
         this.setFormValues({
-          id: 'Auto Generated',
+          sizeId: 'Auto Generated',
           description: '',
           extraCost: 0.0,
         });
+        this.isLoading = false;
       }
     });
   }
 
   saveSize() {
     if (this.mode === 'add') {
-      this.productsService.createSize(this.sizeEditForm.value);
+      this.productsService.createSize(this.sizeEditForm.value)
+        .pipe(take(1))
+        .subscribe(data => {
+          this.router.navigate(['../products/size']);
+        });
     } else {
-      this.productsService.updateSize(this.sizeEditForm.value);
+      this.productsService.updateSize(this.sizeEditForm.value)
+        .pipe(take(1))
+        .subscribe(data => {
+          this.router.navigate(['../products/size']);
+        });
     }
   }
 
   private setFormValues(size: Size) {
     this.sizeEditForm = this.fb.group({
-      id: [size.id],
+      sizeId: [size.sizeId],
       description: [size.description, [Validators.required]],
       extraCost: [size.extraCost, [Validators.required]],
     });

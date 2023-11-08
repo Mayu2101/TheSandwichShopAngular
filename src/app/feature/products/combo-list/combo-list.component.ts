@@ -11,7 +11,7 @@ import { take } from 'rxjs';
 })
 export class ComboListComponent {
   dataSource = new MatTableDataSource<Combo>([]);
-  displayedColumns: string[] = ['id', 'description', 'action'];
+  displayedColumns: string[] = ['description', 'action'];
   isLoading = true;
 
   constructor(private productsService: ProductsService) {}

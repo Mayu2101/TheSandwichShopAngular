@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductsService } from '../products.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { Combo } from '../models/combo.model';
 
@@ -12,12 +12,14 @@ import { Combo } from '../models/combo.model';
 })
 export class ComboEditComponent {
   public comboEditForm: FormGroup;
+  public isLoading = true;
   private mode: string;
 
   constructor(
     private productsService: ProductsService,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) {
     this.comboEditForm = new FormGroup({});
     this.mode = 'add';
@@ -33,27 +35,37 @@ export class ComboEditComponent {
           .pipe(take(1))
           .subscribe((data: Combo) => {
             this.setFormValues(data);
+            this.isLoading = false; 
           });
       } else {
         this.setFormValues({
-          id: 'Auto Generated',
+          comboId: 'Auto Generated',
           description: '',
         });
+        this.isLoading = false;
       }
     });
   }
 
   saveCombo() {
     if (this.mode === 'add') {
-      this.productsService.createCombo(this.comboEditForm.value);
+      this.productsService.createCombo(this.comboEditForm.value)
+        .pipe(take(1))
+        .subscribe(data => {
+          this.router.navigate(['../products/combo']);
+        });
     } else {
-      this.productsService.updateCombo(this.comboEditForm.value);
+      this.productsService.updateCombo(this.comboEditForm.value)
+        .pipe(take(1))
+        .subscribe(data => {
+          this.router.navigate(['../products/combo']);
+        });
     }
   }
 
   private setFormValues(combo: Combo) {
     this.comboEditForm = this.fb.group({
-      id: [combo.id],
+      comboId: [combo.comboId],
       description: [combo.description, [Validators.required]],
     });
   }

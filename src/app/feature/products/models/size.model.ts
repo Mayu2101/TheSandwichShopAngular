@@ -1,5 +1,5 @@
 export interface Size {
-  id: string;
+  sizeId: string;
   description: string;
   extraCost: number;
 }

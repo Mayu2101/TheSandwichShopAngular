@@ -11,7 +11,7 @@ import { take } from 'rxjs';
 })
 export class BreadListComponent implements OnInit {
   dataSource = new MatTableDataSource<Bread>([]);
-  displayedColumns: string[] = ['id', 'description', 'action'];
+  displayedColumns: string[] = ['description', 'action'];
   isLoading = true;
 
   constructor(private productsService: ProductsService) {}

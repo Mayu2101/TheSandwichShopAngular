@@ -36,7 +36,6 @@ export class DataService {
   }
 
   ValidateOtp(user: UserOtp) {
-    console.log(user);
     return this.httpClient.post(`${this.apiUrl}/Otp`, user, this.httpOptions);
   }
 }

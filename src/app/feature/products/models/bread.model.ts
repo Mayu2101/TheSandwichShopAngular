@@ -1,5 +1,5 @@
 export interface Bread {
-  id: string;
+  breadTypeId: string;
   description: string;
 }
 
